@@ -26,12 +26,18 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行 【葱花视频】'
+      - name: '运行 【葱花视频-时段奖励】'
         if: env.TASKCENTERBODY      
         run: |
           node Task/chonghua1.js
         env:
           TASKCENTERBODY: ${{ secrets.TASKCENTERBODY }}
           TIMEREDBODY: ${{ secrets.TIMEREDBODY }}
-          
+     - name: '运行 【葱花视频-分享奖励】'
+        if: env.SHAREBODY      
+        run: |
+          node Task/chonghua2.js
+        env:
+          SHAREBODY: ${{ secrets.SHAREBODY }}
+          SHAREREWARDBODY: ${{ secrets.SHAREREWARDBODY }}              
     
