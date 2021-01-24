@@ -120,12 +120,10 @@ if ($.isNode()) {
   for (let i = 0; i < sharebodyArr.length; i++) {
     if (sharebodyArr[i]) {
       sharebody = sharebodyArr[i];
-      sharerewardbodyVal = sharerewardbodyArr[0];
       $.index = $.index + 1;
       console.log(`\n✅ 执行分享视频任务【${$.index}】`)
     }
     await share(task); //分享
-    await $.wait(3000);
     await sharereward(task); //分享奖励
   }
     
@@ -146,29 +144,6 @@ function showmsg() {
 }
 
 ////////////////////////////////////////////////////////////////////////
-
-async function AC(){
-  console.log('\n\n'+'TASKCENTERBODY copy下面的值'+'\n\n'+taskcenterbodyVal+'\n\n\n\n'+'SHAREBODY copy下面的值'+'\n\n'+sharebodyVal+'\n\n\n\n'+'SHAREREWARDBODY copy下面的值'+'\n\n'+sharerewardbodyVal+'\n\n\n\n'+'TIMEREDBODY copy下面的值'+'\n\n'+timeredbodyVal+'\n\n\n\n'+'READBODY copy下面的值'+'\n\n'+readbodyVal+'\n\n')
-}
-
-async function videoread(){
-  if (!readbodyArr[0]) {
-    console.log($.name, '【提示】请把阅读视频的请求体填入Github 的 Secrets 中，请以#隔开')
-    return;
-  }
-  $.log('\n✅ 查询刷视频任务\n', `视频总数${readbodyArr.length}个,上次执行到第${$.begin}个,预计执行${((readbodyArr.length - $.begin) / 120).toFixed(2)}小时`)
-  $.index = 0;
-  for (let i = indexLast ? indexLast : 0; i < readbodyArr.length; i++) {
-    if (readbodyArr[i]) {
-      readbody = readbodyArr[i];
-      $.index = $.index + 1;
-      console.log(`\n✅ 执行自动刷视频任务【${$.index}】`)
-    }
-    await AutoRead();
-  }
-  $.log('', '', `🥦 本次共完成${$.index}次阅读，获得${readscore}个金币，阅读请求结束`);
-  tz += `【自动阅读】：${readscore}个金币\n`;
-}
 
 
 //任务中心
@@ -197,26 +172,6 @@ function taskcenter() {
 }
 
 
-//今日金币
-function todaycoin() {
-
-  return new Promise((resolve, reject) => {
-    let todaycoinurl = {
-      url: `https://app.kxp.com/web/income/detail?uid=${uid}`,
-      headers: headerVal,
-    }
-    $.post(todaycoinurl, async (error, resp, data) => {
-      let todaycoin = JSON.parse(data);
-      $.log(`【今日金币】：${todaycoin.data.today_score}个金币🏅`);
-      $.log(`【账户金币】：${todaycoin.data.score}个金币🏅,折算${todaycoin.data.money}`);
-      $.log(`【获取金币总计】：${todaycoin.data.total_score}个金币🏅`);
-      tz += `【今日金币】：${todaycoin.data.today_score}个金币\n`;
-      resolve()
-    })
-  })
-
-}
-
 //分享视频赚钱
 function share(task) {
   if (task.data.task_list[0].title_en === "share_video" || task.data.task_list[2].title_en === "share_video" || task.data.task_list[3].title_en === "share_video") {
@@ -228,11 +183,8 @@ function share(task) {
       }
       $.post(shareurl, async (error, resp, data) => {
         let share = JSON.parse(data);
-        //$.log(`\n本次阅读获得${share.data.score}个金币🏅\n`);
-        //sharescore += share.data.score;
         if(logs==1) $.log(data)
         $.log(`分享任务奖励请求：成功🎉`);
-        tz += `分享任务奖励请求：成功🎉\n`;
         resolve()
       })
     })
@@ -265,7 +217,6 @@ function sharereward(task) {
     })
   } else {
     $.log(`【分享视频】：已完成🎉`);
-    tz += `【分享视频】：已完成🎉\n`;
   }
 }
 
