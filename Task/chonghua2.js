@@ -108,6 +108,7 @@ if ($.isNode()) {
 !(async () => {
      await Jsname()
   taskcenterbodyVal = taskcenterbodyArr[0];
+  O = (`🥦${jsname}任务执行通知🔔`);
   console.log(`\n✅ 打印任务状态清单`)
   await taskcenter(); //任务中心
   if (!sharebodyArr[0]) {
