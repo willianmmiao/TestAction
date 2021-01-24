@@ -46,9 +46,3 @@ jobs:
           BARK_SOUND: ${{ secrets.BARK_SOUND }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-      - name: '运行 【中青看点账号1-文章阅读1-54篇】'
-        if: env.YOUTH_READ         
-        run: |
-          node Task/Youth_Read.js
-        env:
-          YOUTH_READ: ${{ secrets.YOUTH_READ }}
