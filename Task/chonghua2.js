@@ -107,7 +107,6 @@ if ($.isNode()) {
 
 
 !(async () => {
-     await Jsname()
   taskcenterbodyVal = taskcenterbodyArr[0];
   O = (`🥦${jsname}任务执行通知🔔`);
   console.log(`\n✅ 打印任务状态清单`)
@@ -116,7 +115,7 @@ if ($.isNode()) {
     console.log($.name, '【提示】请把分享视频的请求体填入Github 的 Secrets 中，请以#隔开')
     return;
   }
- 
+  $.index = 0;
   for (let i = 0; i < sharebodyArr.length; i++) {
     if (sharebodyArr[i]) {
       sharebody = sharebodyArr[i];
