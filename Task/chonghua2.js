@@ -191,8 +191,6 @@ function taskcenter() {
 
       //$.log(`【任务状态】:${task.data.task_list[6].status}\n`);
 
-      tz += `【现金余额】：¥${task.data.activity_money.money}元\n`
-
       resolve()
     })
   })
@@ -234,6 +232,7 @@ function share(task) {
         //sharescore += share.data.score;
         if(logs==1) $.log(data)
         $.log(`分享任务奖励请求：成功🎉`);
+        tz += `分享任务奖励请求：成功🎉\n`;
         resolve()
       })
     })
