@@ -151,11 +151,6 @@ if ($.isNode()) {
     }
   });
 
-  Object.keys(sharerewardbodyVal).forEach((item) => {
-    if (sharerewardbodyVal[item]) {
-      sharerewardbodyArr.push(sharerewardbodyVal[item])
-    }
-  });
 
   Object.keys(timeredbodyVal).forEach((item) => {
     if (timeredbodyVal[item]) {
@@ -166,7 +161,6 @@ if ($.isNode()) {
   //readbodyArr.push($.getdata('chgetbody_video'));
   //sharebodyArr.push($.getdata('chgetbody_share'));
   taskcenterbodyArr.push($.getdata('chgetbody_taskcenter'));
-  sharerewardbodyArr.push($.getdata('chgetbody_sharereward'));
   timeredbodyArr.push($.getdata('chgetbody_timered'));
 }
 
