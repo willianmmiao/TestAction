@@ -259,8 +259,6 @@ function taskcenter() {
 
       //$.log(`【任务状态】:${task.data.task_list[6].status}\n`);
 
-      tz += `【现金余额】：¥${task.data.activity_money.money}元\n`
-
       resolve()
     })
   })
