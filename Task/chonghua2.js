@@ -39,7 +39,7 @@ if (process.env.SHAREBODY && process.env.SHAREBODY.indexOf('#') > -1) {
     sharebodyVal = process.env.SHAREBODY.split('\n');
     console.log(`您选择的是用换行隔开\n`)
   } else {
-    sharebodyVal = process.env.SHAREREWARDBODY.split()
+    sharebodyVal = process.env.SHAREBODY.split()
   }
 
 ////////////////////////////////////////////////////////////////////////
@@ -53,11 +53,7 @@ if ($.isNode()) {
       COOKIES_SPLIT
     )} =============\n`
   );
-
-
-  ////////////////////////////////////////////////////////////////////////
- 
-
+  
   if (
     process.env.SHAREREWARDBODY &&
     process.env.SHAREREWARDBODY.indexOf(COOKIES_SPLIT) > -1
