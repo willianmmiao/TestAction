@@ -103,21 +103,23 @@ if ($.isNode()) {
 !(async () => {
      await Jsname()
   O = (`🥦${jsname}任务执行通知🔔`);
-  sharerewardbodyVal = sharerewardbodyArr[0];
-  console.log(`\n✅ 查询账户明细\n`)
-  if (uid >= 1) {
-    await todaycoin(); //box填入uid
-  } else {
-    $.msg(
-      jsname,
-      "💖请到BoxJs填写自己的邀请码,保存设置\n",
-      "点击跳转,复制链接,订阅我的BoxJs", {
-        "open-url": "https://raw.githubusercontent.com/CenBoMin/GithubSync/main/cenbomin.box.json"
-      }
-    );
+  if (!sharebodyArr[0]) {
+    console.log($.name, '【提示】请把分享视频的请求体填入Github 的 Secrets 中，请以#隔开')
+    return;
   }
-
-    await sharevideo();//分享任务
+  $.index = 0;
+  for (let i = 0; i < sharebodyArr.length; i++) {
+    if (sharebodyArr[i]) {
+      sharebody = sharebodyArr[i];
+      sharerewardbodyVal = sharerewardbodyArr[0];
+      $.index = $.index + 1;
+      console.log(`\n✅ 执行分享视频任务【${$.index}】`)
+    }
+    await share(task); //分享
+    await $.wait(3000);
+    await sharereward(task); //分享奖励
+  }
+    
   await showmsg();
 
 })()
@@ -158,26 +160,6 @@ async function videoread(){
   $.log('', '', `🥦 本次共完成${$.index}次阅读，获得${readscore}个金币，阅读请求结束`);
   tz += `【自动阅读】：${readscore}个金币\n`;
 }
-async function sharevideo(){
-  if (!sharebodyArr[0]) {
-    console.log($.name, '【提示】请把分享视频的请求体填入Github 的 Secrets 中，请以#隔开')
-    return;
-  }
-  $.index = 0;
-  for (let i = 0; i < sharebodyArr.length; i++) {
-    if (sharebodyArr[i]) {
-      sharebody = sharebodyArr[i];
-      sharerewardbodyVal = sharerewardbodyArr[0];
-      $.index = $.index + 1;
-      console.log(`\n✅ 执行分享视频任务【${$.index}】`)
-    }
-    await share(task); //分享
-    await $.wait(3000);
-    await sharereward(task); //分享奖励
-  }
-
-}
-
 
 
 //任务中心
