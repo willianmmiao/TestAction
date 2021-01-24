@@ -18,19 +18,12 @@ let headerVal = {
 };
 
 
-
-
 const sharebodyArr = [];
 let sharebodyVal = "";
-//let SHAREBODY = [];
 
 const sharerewardbodyArr = [];
 let sharerewardbodyVal = "";
-//let SHAREREWARDBODY = [];
 
-
-
-let readscore = 0;
 let sharescore = 0;
 
 let bodys = $.getdata("chgetbody_video");
@@ -39,6 +32,15 @@ let indexLast = $.getdata('chgetbody_video_index');
 
 $.begin = indexLast ? parseInt(indexLast, 10) : 1;
 
+if (process.env.SHAREREWARDBODY && process.env.SHAREREWARDBODY.indexOf('#') > -1) {
+    sharerewardbodyVal = process.env.SHAREREWARDBODY.split('#');
+    console.log(`您选择的是用"#"隔开\n`)
+  } else if (process.env.SHAREREWARDBODY && process.env.SHAREREWARDBODY.indexOf('\n') > -1) {
+    sharerewardbodyVal = process.env.SHAREREWARDBODY.split('\n');
+    console.log(`您选择的是用换行隔开\n`)
+  } else {
+    sharerewardbodyVal = process.env.SHAREREWARDBODY.split()
+  }
 
 ////////////////////////////////////////////////////////////////////////
 if ($.isNode()) {
@@ -53,15 +55,6 @@ if ($.isNode()) {
   );
 
 
-  if (process.env.SHAREREWARDBODY && process.env.SHAREREWARDBODY.indexOf('#') > -1) {
-    sharerewardbodyVal = process.env.SHAREREWARDBODY.split('#');
-    console.log(`您选择的是用"#"隔开\n`)
-  } else if (process.env.SHAREREWARDBODY && process.env.SHAREREWARDBODY.indexOf('\n') > -1) {
-    sharerewardbodyVal = process.env.SHAREREWARDBODY.split('\n');
-    console.log(`您选择的是用换行隔开\n`)
-  } else {
-    sharerewardbodyVal = process.env.SHAREREWARDBODY.split()
-  }
   ////////////////////////////////////////////////////////////////////////
  
 
@@ -102,7 +95,6 @@ if ($.isNode()) {
 
 !(async () => {
      await Jsname()
-  O = (`🥦${jsname}任务执行通知🔔`);
   if (!sharebodyArr[0]) {
     console.log($.name, '【提示】请把分享视频的请求体填入Github 的 Secrets 中，请以#隔开')
     return;
