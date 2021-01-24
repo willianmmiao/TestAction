@@ -173,7 +173,6 @@ if ($.isNode()) {
   O = (`🥦${jsname}任务执行通知🔔`);
   taskcenterbodyVal = taskcenterbodyArr[0];
   timeredbodyVal = timeredbodyArr[0];
-  sharerewardbodyVal = sharerewardbodyArr[0];
   console.log(`\n✅ 查询账户明细\n`)
   if (uid >= 1) {
     await todaycoin(); //box填入uid
