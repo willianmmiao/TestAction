@@ -28,9 +28,17 @@ jobs:
           npm install
       - name: '运行 【葱花视频】'
         if: env.TASKCENTERBODY
+        if: env.READBODY
+        if: env.SHAREBODY
+        
         run: |
           node Task/RONGHUA_VIDEO.js
         env:
+          TASKCENTERBODY: ${{ secrets.TASKCENTERBODY }}
+          SHAREBODY: ${{ secrets.SHAREBODY }}
+          SHAREREWARDBODY: ${{ secrets.SHAREREWARDBODY }}
+          TIMEREDBODY: ${{ secrets.TIMEREDBODY }}
+          READBODY: ${{ secrets.READBODY}}
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
@@ -38,3 +46,9 @@ jobs:
           BARK_SOUND: ${{ secrets.BARK_SOUND }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+      - name: '运行 【中青看点账号1-文章阅读1-54篇】'
+        if: env.YOUTH_READ         
+        run: |
+          node Task/Youth_Read.js
+        env:
+          YOUTH_READ: ${{ secrets.YOUTH_READ }}
