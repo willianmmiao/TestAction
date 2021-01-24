@@ -17,6 +17,8 @@ let headerVal = {
   'Accept-Language': `zh-Hans-CN;q=1, en-CN;q=0.9`
 };
 
+const taskcenterbodyArr = [];
+let taskcenterbodyVal = "";
 
 const sharebodyArr = [];
 let sharebodyVal = "";
@@ -53,6 +55,14 @@ if ($.isNode()) {
       COOKIES_SPLIT
     )} =============\n`
   );
+  if (
+    process.env.TASKCENTERBODY &&
+    process.env.TASKCENTERBODY.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    taskcenterbodyVal = process.env.TASKCENTERBODY.split(COOKIES_SPLIT);
+  } else {
+    taskcenterbodyVal = process.env.TASKCENTERBODY.split();
+  }
   
   if (
     process.env.SHAREREWARDBODY &&
@@ -74,6 +84,11 @@ Object.keys(sharebodyVal).forEach((item) => {
 
 
 if ($.isNode()) {
+    Object.keys(taskcenterbodyVal).forEach((item) => {
+    if (taskcenterbodyVal[item]) {
+      taskcenterbodyArr.push(taskcenterbodyVal[item])
+    }
+  });
 
   Object.keys(sharerewardbodyVal).forEach((item) => {
     if (sharerewardbodyVal[item]) {
@@ -82,6 +97,7 @@ if ($.isNode()) {
   });
 
 } else {
+  taskcenterbodyArr.push($.getdata('chgetbody_taskcenter'));
   sharerewardbodyArr.push($.getdata('chgetbody_sharereward'));
 }
 
@@ -91,6 +107,9 @@ if ($.isNode()) {
 
 !(async () => {
      await Jsname()
+  taskcenterbodyVal = taskcenterbodyArr[0];
+    console.log(`\n✅ 查询账户明细\n`)
+    await todaycoin();
   if (!sharebodyArr[0]) {
     console.log($.name, '【提示】请把分享视频的请求体填入Github 的 Secrets 中，请以#隔开')
     return;
