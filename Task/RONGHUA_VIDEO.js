@@ -112,21 +112,6 @@ readbodyVal = bodys.split('#');
 sharebodyVal = bodys2.split('#');
 
 ////////////////////////////////////////////////////////////////////////
-
-if ($.isNode()) {
-
-  // 自定义多 cookie 之间连接的分隔符，默认为 \n 换行分割，不熟悉的不要改动和配置，为了兼容本地 node 执行
-  COOKIES_SPLIT = process.env.COOKIES_SPLIT || "\n";
-
-  console.log(
-    `============ cookies分隔符为：${JSON.stringify(
-      COOKIES_SPLIT
-    )} =============\n`
-  );
-
-
-
-
   if (process.env.READBODY && process.env.READBODY.indexOf('#') > -1) {
     readbodyVal = process.env.READBODY.split('#');
     console.log(`您选择的是用"#"隔开\n`)
@@ -146,6 +131,18 @@ if ($.isNode()) {
   } else {
     sharerewardbodyVal = process.env.SHAREREWARDBODY.split()
   }
+
+if ($.isNode()) {
+
+  // 自定义多 cookie 之间连接的分隔符，默认为 \n 换行分割，不熟悉的不要改动和配置，为了兼容本地 node 执行
+  COOKIES_SPLIT = process.env.COOKIES_SPLIT || "\n";
+
+  console.log(
+    `============ cookies分隔符为：${JSON.stringify(
+      COOKIES_SPLIT
+    )} =============\n`
+  );
+
   ////////////////////////////////////////////////////////////////////////
   if (
     process.env.TASKCENTERBODY &&
