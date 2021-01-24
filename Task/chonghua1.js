@@ -50,7 +50,7 @@ const jsname = '葱花视频'
 const $ = Env(jsname)
 const logs = $.getdata('logbutton'); //0为关闭日志，1为开启,默认为0
 const notifyInterval = $.getdata('tzbutton'); //0为关闭通知，1为所有通知,默认为0
-now = new Date(new Date().getTime() + new Date().getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000);
+now = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000);
 
 let task = '';
 let tz = '';
@@ -68,25 +68,12 @@ let headerVal = {
 
 const taskcenterbodyArr = [];
 let taskcenterbodyVal = "";
-let TASKCENTERBODY = [];
-
-const sharebodyArr = [];
-let sharebodyVal = "";
-//let SHAREBODY = [];
-
-const sharerewardbodyArr = [];
-let sharerewardbodyVal = "";
-//let SHAREREWARDBODY = [];
+//let TASKCENTERBODY = [];
 
 const timeredbodyArr = [];
 let timeredbodyVal = "";
 //let TIMEREDBODY = [];
 
-const readbodyArr = [];
-let readbodyVal = "";
-//let READBODY = [];
-
-let COOKIES_SPLIT = "";
 
 let readscore = 0;
 let sharescore = 0;
@@ -112,6 +99,18 @@ readbodyVal = bodys.split('#');
 sharebodyVal = bodys2.split('#');
 
 ////////////////////////////////////////////////////////////////////////
+if ($.isNode()) {
+
+  // 自定义多 cookie 之间连接的分隔符，默认为 \n 换行分割，不熟悉的不要改动和配置，为了兼容本地 node 执行
+  COOKIES_SPLIT = process.env.COOKIES_SPLIT || "\n";
+
+  console.log(
+    `============ cookies分隔符为：${JSON.stringify(
+      COOKIES_SPLIT
+    )} =============\n`
+  );
+
+
   if (process.env.READBODY && process.env.READBODY.indexOf('#') > -1) {
     readbodyVal = process.env.READBODY.split('#');
     console.log(`您选择的是用"#"隔开\n`)
@@ -131,18 +130,6 @@ sharebodyVal = bodys2.split('#');
   } else {
     sharerewardbodyVal = process.env.SHAREREWARDBODY.split()
   }
-
-if ($.isNode()) {
-
-  // 自定义多 cookie 之间连接的分隔符，默认为 \n 换行分割，不熟悉的不要改动和配置，为了兼容本地 node 执行
-  COOKIES_SPLIT = process.env.COOKIES_SPLIT || "\n";
-
-  console.log(
-    `============ cookies分隔符为：${JSON.stringify(
-      COOKIES_SPLIT
-    )} =============\n`
-  );
-
   ////////////////////////////////////////////////////////////////////////
   if (
     process.env.TASKCENTERBODY &&
@@ -219,35 +206,30 @@ if ($.isNode()) {
 
 
 !(async () => {
-  await Jsname()
+     await Jsname()
   O = (`🥦${jsname}任务执行通知🔔`);
-  for (let i = 0; i < taskcenterbodyArr.length; i++) {
-    taskcenterbodyVal = taskcenterbodyArr[i];
-    timeredbodyVal = timeredbodyArr[i];
-    console.log(`\n✅ 查询账户明细\n`)
-    if (uid >= 1) {
-      await todaycoin(); //box填入uid
-    } else {
-      $.msg(
-        jsname,
-        "💖请到BoxJs填写自己的邀请码,保存设置\n",
-        "点击跳转,复制链接,订阅我的BoxJs", {
-          "open-url": "https://raw.githubusercontent.com/CenBoMin/GithubSync/main/cenbomin.box.json"
-        }
-      );
-    }
-
-    console.log(`\n✅ 打印任务状态清单`)
-    await taskcenter(); //任务中心
-
-    console.log(`\n✅ 执行时段奖励任务`)
-    await timered(task); //时段奖励
-    if (now.getHours() == 18) {
-      await videoread(); //自动刷视频
-      await sharevideo(); //分享任务
-    }
-    await showmsg();
+  taskcenterbodyVal = taskcenterbodyArr[0];
+  timeredbodyVal = timeredbodyArr[0];
+  sharerewardbodyVal = sharerewardbodyArr[0];
+  console.log(`\n✅ 查询账户明细\n`)
+  if (uid >= 1) {
+    await todaycoin(); //box填入uid
+  } else {
+    $.msg(
+      jsname,
+      "💖请到BoxJs填写自己的邀请码,保存设置\n",
+      "点击跳转,复制链接,订阅我的BoxJs", {
+        "open-url": "https://raw.githubusercontent.com/CenBoMin/GithubSync/main/cenbomin.box.json"
+      }
+    );
   }
+
+  console.log(`\n✅ 打印任务状态清单`)
+  await taskcenter(); //任务中心
+
+  console.log(`\n✅ 执行时段奖励任务`)
+  await timered(task); //时段
+  await showmsg();
 
 })()
 .catch((e) => $.logErr(e))
@@ -264,7 +246,12 @@ function showmsg() {
 }
 
 ////////////////////////////////////////////////////////////////////////
-async function videoread() {
+
+async function AC(){
+  console.log('\n\n'+'TASKCENTERBODY copy下面的值'+'\n\n'+taskcenterbodyVal+'\n\n\n\n'+'SHAREBODY copy下面的值'+'\n\n'+sharebodyVal+'\n\n\n\n'+'SHAREREWARDBODY copy下面的值'+'\n\n'+sharerewardbodyVal+'\n\n\n\n'+'TIMEREDBODY copy下面的值'+'\n\n'+timeredbodyVal+'\n\n\n\n'+'READBODY copy下面的值'+'\n\n'+readbodyVal+'\n\n')
+}
+
+async function videoread(){
   if (!readbodyArr[0]) {
     console.log($.name, '【提示】请把阅读视频的请求体填入Github 的 Secrets 中，请以#隔开')
     return;
@@ -282,7 +269,7 @@ async function videoread() {
   $.log('', '', `🥦 本次共完成${$.index}次阅读，获得${readscore}个金币，阅读请求结束`);
   tz += `【自动阅读】：${readscore}个金币\n`;
 }
-async function sharevideo() {
+async function sharevideo(){
   if (!sharebodyArr[0]) {
     console.log($.name, '【提示】请把分享视频的请求体填入Github 的 Secrets 中，请以#隔开')
     return;
@@ -365,7 +352,7 @@ function share(task) {
         let share = JSON.parse(data);
         //$.log(`\n本次阅读获得${share.data.score}个金币🏅\n`);
         //sharescore += share.data.score;
-        if (logs == 1) $.log(data)
+        if(logs==1) $.log(data)
         $.log(`分享任务奖励请求：成功🎉`);
         resolve()
       })
@@ -385,11 +372,11 @@ function sharereward(task) {
       $.post(sharerewardurl, async (error, resp, data) => {
         let sharereward = JSON.parse(data);
         if (sharereward.code === 1007) {
-          if (logs == 1) $.log(data)
+          if(logs==1) $.log(data)
           $.log(`【分享奖励】：账号异常❌\n请评论,点赞,上传视频...并禁用脚本观察`)
           tz += `【分享奖励】：账号异常❌\n`;
         } else {
-          if (logs == 1) $.log(data)
+          if(logs==1) $.log(data)
           $.log(`本次任务获得${sharereward.data.score}个金币🏅`);
           tz += `【分享任务】：${sharescore}个金币\n`;
           sharescore += sharereward.data.score;
@@ -414,15 +401,15 @@ function timered(task) {
       };
       $.post(timeredurl, async (error, response, data) => {
         let timered = JSON.parse(data)
-        nexttime = (timered.data.remain_time) * 1000
+        nexttime = (timered.data.remain_time)*1000
         if (timered.code === 1007) {
-          if (logs == 1) $.log(data)
+          if(logs==1) $.log(data)
           $.log(`【时段奖励】：账号异常❌\n请评论,点赞,上传视频...并禁用脚本观察`)
           tz += `【时段奖励】：账号异常❌\n`;
         } else {
-          if (logs == 1) $.log(data)
+          if(logs==1) $.log(data)
           $.log(`【时段奖励】：获取${timered.data.score}金币`);
-          $.log(`【下个时段】：` + time(nexttime));
+          $.log(`【下个时段】：`+ time(nexttime));
           tz += `【时段奖励】：${timered.data.score}金币\n`;
         }
 
@@ -450,14 +437,14 @@ function AutoRead() {
       $.setdata(res + "", 'chgetbody_body_index');
       let readres = JSON.parse(data);
       if (readres.code == '100006') {
-        if (logs == 1) $.log(data)
+        if(logs==1) $.log(data)
         $.log(`⛔️第${$.index}次-获取金币已达上限🥺,明日在来！`)
       } else if (readres.code == '1007') {
-        if (logs == 1) $.log(data)
+        if(logs==1) $.log(data)
         $.log(`【本次阅读${$.index}】：账号异常❌\n请评论,点赞,上传视频...并禁用脚本观察`)
         tz += `【本次阅读${$.index}】：账号异常❌\n`;
       } else if (typeof readres.data.score === 'number') {
-        if (logs == 1) $.log(data)
+        if(logs==1) $.log(data)
         await $.wait(30000);
         $.log(`【本次阅读】：${readres.data.score}个金币🏅`);
         readscore += readres.data.score;
@@ -469,12 +456,12 @@ function AutoRead() {
 }
 
 // prettier-ignore
-function Jsname() {
+function Jsname(){
 
-  $.log(`┎━━┰┒┎┰━━┰━━┰━━┰┒┎┰┒┎┰━━┒`)
-  $.log(`│┎━┦┕┚│┎┒│┎┒│┎┰┦┕┚││││┎┒│`)
-  $.log(`│┕━┦┎┒│┕┚││││┕┚│┎┒│┕┚│┎┒│`)
-  $.log(`┕━━┹┚┕┹━━┹┚┕┹━━┹┚┕┹━━┹┚┕┚`)
+$.log(`┎━━┰┒┎┰━━┰━━┰━━┰┒┎┰┒┎┰━━┒`)
+$.log(`│┎━┦┕┚│┎┒│┎┒│┎┰┦┕┚││││┎┒│`)
+$.log(`│┕━┦┎┒│┕┚││││┕┚│┎┒│┕┚│┎┒│`)
+$.log(`┕━━┹┚┕┹━━┹┚┕┹━━┹┚┕┹━━┹┚┕┚`)
 
 }
 
