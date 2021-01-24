@@ -33,10 +33,10 @@ jobs:
         env:
           TASKCENTERBODY: ${{ secrets.TASKCENTERBODY }}
           TIMEREDBODY: ${{ secrets.TIMEREDBODY }}
-     - name: '运行 【葱花视频-分享奖励】'
+      - name: '运行 【葱花视频-分享奖励】'
         if: env.SHAREBODY      
         run: |
-          node Task/chonghua1.js
+          node Task/chonghua2.js 
         env:
           SHAREBODY: ${{ secrets.SHAREBODY }}
           SHAREREWARDBODY: ${{ secrets.SHAREREWARDBODY }}              
