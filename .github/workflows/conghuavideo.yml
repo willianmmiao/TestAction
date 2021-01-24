@@ -36,7 +36,7 @@ jobs:
      - name: '运行 【葱花视频-分享奖励】'
         if: env.SHAREBODY      
         run: |
-          node Task/chonghua2.js
+          node Task/chonghua1.js
         env:
           SHAREBODY: ${{ secrets.SHAREBODY }}
           SHAREREWARDBODY: ${{ secrets.SHAREREWARDBODY }}              
