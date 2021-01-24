@@ -64,7 +64,7 @@ if ($.isNode()) {
   } else {
     taskcenterbodyVal = process.env.TASKCENTERBODY.split();
   }
-  
+
   if (
     process.env.SHAREREWARDBODY &&
     process.env.SHAREREWARDBODY.indexOf(COOKIES_SPLIT) > -1
@@ -116,7 +116,7 @@ if ($.isNode()) {
     console.log($.name, '【提示】请把分享视频的请求体填入Github 的 Secrets 中，请以#隔开')
     return;
   }
-  $.index = 0;
+ 
   for (let i = 0; i < sharebodyArr.length; i++) {
     if (sharebodyArr[i]) {
       sharebody = sharebodyArr[i];
@@ -126,7 +126,7 @@ if ($.isNode()) {
     await share(task); //分享
     await sharereward(task); //分享奖励
   }
-    
+
   await showmsg();
 
 })()
@@ -217,6 +217,7 @@ function sharereward(task) {
     })
   } else {
     $.log(`【分享视频】：已完成🎉`);
+    resolve()
   }
 }
 
