@@ -34,7 +34,11 @@ let indexLast = $.getdata('chgetbody_video_index');
 
 $.begin = indexLast ? parseInt(indexLast, 10) : 1;
 
-if (process.env.SHAREBODY && process.env.SHAREBODY.indexOf('#') > -1) {
+
+
+////////////////////////////////////////////////////////////////////////
+if ($.isNode()) {
+  if (process.env.SHAREBODY && process.env.SHAREBODY.indexOf('#') > -1) {
     sharebodyVal = process.env.SHAREBODY.split('#');
     console.log(`您选择的是用"#"隔开\n`)
   } else if (process.env.SHAREBODY && process.env.SHAREBODY.indexOf('\n') > -1) {
@@ -43,9 +47,6 @@ if (process.env.SHAREBODY && process.env.SHAREBODY.indexOf('#') > -1) {
   } else {
     sharebodyVal = process.env.SHAREBODY.split()
   }
-
-////////////////////////////////////////////////////////////////////////
-if ($.isNode()) {
 
   // 自定义多 cookie 之间连接的分隔符，默认为 \n 换行分割，不熟悉的不要改动和配置，为了兼容本地 node 执行
   COOKIES_SPLIT = process.env.COOKIES_SPLIT || "\n";
