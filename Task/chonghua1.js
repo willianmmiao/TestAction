@@ -142,18 +142,6 @@ if ($.isNode()) {
 }
 
 
-Object.keys(readbodyVal).forEach((item) => {
-  if (readbodyVal[item]) {
-    readbodyArr.push(readbodyVal[item])
-  }
-})
-
-Object.keys(sharebodyVal).forEach((item) => {
-  if (sharebodyVal[item]) {
-    sharebodyArr.push(sharebodyVal[item])
-  }
-})
-
 
 if ($.isNode()) {
 
