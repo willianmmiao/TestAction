@@ -39,7 +39,6 @@ let indexLast = $.getdata('chgetbody_video_index');
 
 $.begin = indexLast ? parseInt(indexLast, 10) : 1;
 
-sharebodyVal = bodys2.split('#');
 
 ////////////////////////////////////////////////////////////////////////
 if ($.isNode()) {
