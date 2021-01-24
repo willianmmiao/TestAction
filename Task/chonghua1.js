@@ -78,25 +78,6 @@ let timeredbodyVal = "";
 let readscore = 0;
 let sharescore = 0;
 
-let bodys = $.getdata("chgetbody_video");
-let bodys2 = $.getdata("chgetbody_share");
-let indexLast = $.getdata('chgetbody_video_index');
-
-$.begin = indexLast ? parseInt(indexLast, 10) : 1;
-
-
-if (!(bodys && bodys != '')) {
-  $.msg("", "", '请先-观看视频-获取请求体,body容易失效建议50个...')
-  $.done()
-}
-
-if (!(bodys2 && bodys2 != '')) {
-  $.msg("", "", '请先-分享视频-获取请求体,只能3个！3个！3个！')
-  $.done()
-}
-
-readbodyVal = bodys.split('#');
-sharebodyVal = bodys2.split('#');
 
 ////////////////////////////////////////////////////////////////////////
 if ($.isNode()) {
