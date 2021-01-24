@@ -27,22 +27,11 @@ jobs:
         run: |
           npm install
       - name: '运行 【葱花视频】'
-        if: env.TASKCENTERBODY
-        if: env.READBODY
-        if: env.SHAREBODY
-        
+        if: env.TASKCENTERBODY      
         run: |
-          node Task/RONGHUA_VIDEO.js
+          node Task/chonghua1.js
         env:
           TASKCENTERBODY: ${{ secrets.TASKCENTERBODY }}
-          SHAREBODY: ${{ secrets.SHAREBODY }}
-          SHAREREWARDBODY: ${{ secrets.SHAREREWARDBODY }}
           TIMEREDBODY: ${{ secrets.TIMEREDBODY }}
-          READBODY: ${{ secrets.READBODY}}
-          PUSH_KEY: ${{ secrets.PUSH_KEY }}
-          BARK_PUSH: ${{ secrets.BARK_PUSH }}
-          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-          TG_USER_ID: ${{ secrets.TG_USER_ID }}
-          BARK_SOUND: ${{ secrets.BARK_SOUND }}
-          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
-          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+          
+    
