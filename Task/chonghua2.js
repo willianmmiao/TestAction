@@ -32,14 +32,14 @@ let indexLast = $.getdata('chgetbody_video_index');
 
 $.begin = indexLast ? parseInt(indexLast, 10) : 1;
 
-if (process.env.SHAREREWARDBODY && process.env.SHAREREWARDBODY.indexOf('#') > -1) {
-    sharerewardbodyVal = process.env.SHAREREWARDBODY.split('#');
+if (process.env.SHAREBODY && process.env.SHAREBODY.indexOf('#') > -1) {
+    sharebodyVal = process.env.SHAREBODY.split('#');
     console.log(`您选择的是用"#"隔开\n`)
-  } else if (process.env.SHAREREWARDBODY && process.env.SHAREREWARDBODY.indexOf('\n') > -1) {
-    sharerewardbodyVal = process.env.SHAREREWARDBODY.split('\n');
+  } else if (process.env.SHAREBODY && process.env.SHAREBODY.indexOf('\n') > -1) {
+    sharebodyVal = process.env.SHAREBODY.split('\n');
     console.log(`您选择的是用换行隔开\n`)
   } else {
-    sharerewardbodyVal = process.env.SHAREREWARDBODY.split()
+    sharebodyVal = process.env.SHAREREWARDBODY.split()
   }
 
 ////////////////////////////////////////////////////////////////////////
